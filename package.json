@@ -1,0 +1,16 @@
+{
+  "name": "gospel",
+  "version": "0.0.0",
+  "description": "Daily gospel responsive",
+  "homepage": "",
+  "author": {
+    "name": "",
+    "email": "stefanoantonel@gmail.com",
+    "url": "https://github.com/stefanoantonel/gospel-responsive.git"
+  },
+  "dependencies": {
+    "body-parser": "^1.14.1",
+    "express": "^4.13.3",
+    "request": "^2.65.0"
+  }
+}
