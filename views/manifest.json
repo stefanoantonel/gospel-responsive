@@ -1,0 +1,12 @@
+{
+  "short_name": "Gospel",
+  "name": "Responsive Gospel App",
+  "icons": [
+    {
+      "src": "launcher-logo-240px.svg.png",
+      "sizes": "240x240",
+      "type": "image/png"
+    }
+  ],
+  "display": "fullscreen"
+}
