@@ -1,0 +1,14 @@
+{
+  "short_name": "Gospel App",
+  "name": "Gospel Responsive App",
+  "icons": [
+    {
+      "src": "views/holy-bible-xl.png",
+      "sizes": "64x64",
+      "type": "image/png"
+    }
+  ],
+  "start_url": "/index.html",
+  "display": "standalone",
+  "orientation": "landscape"
+}
