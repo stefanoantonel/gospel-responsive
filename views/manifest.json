@@ -1,12 +1,12 @@
 {
-  "short_name": "Gospel",
-  "name": "Responsive Gospel App",
-  "icons": [
-    {
-      "src": "launcher-logo-240px.svg.png",
-      "sizes": "240x240",
-      "type": "image/png"
+  "name": "Hello World!",
+  "description": "My first Chrome App.",
+  "version": "0.1",
+  "manifest_version": 2,
+  "app": {
+    "background": {
+      "scripts": ["background.js"]
     }
-  ],
-  "display": "fullscreen"
+  },
+  "icons": { "16": "calculator-16.png", "128": "calculator-128.png" }
 }

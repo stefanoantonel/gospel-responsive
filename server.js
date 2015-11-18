@@ -7,6 +7,9 @@ var Xray = require('x-ray');
 var favicon = require('serve-favicon');
 var x = Xray()
 var path = require('path');
+var Gospel = {
+    text: ''
+}
 
 /**
  *  Define the sample application.
@@ -118,16 +121,21 @@ var SampleApp = function() {
         };*/
 
         self.routes['/'] = function(req, res) {
-            
-            x('http://www.ciudadredonda.org/calendario-lecturas/evangelio-del-dia/hoy', ['div.texto_palabra']) 
-            (function(err, parts) {
-                var gospel = parts[parts.length -1];
-                res.render('index', { 
-                    title: 'Gospel', 
-                    message: gospel
-                });
+            res.render('index', { 
+                title: 'Gospel', 
+                message: "Loading..."
             });
         };
+
+        self.routes['/getGospel'] = function(req, res) {
+            x('http://www.ciudadredonda.org/calendario-lecturas/evangelio-del-dia/hoy', ['div.texto_palabra']) 
+            (function(err, parts) {
+                var text = parts[parts.length -1];
+                Gospel.text = text;
+                res.send(Gospel.text);
+            });
+        };
+
     };
 
 
