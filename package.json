@@ -1,7 +1,7 @@
 {
   "name": "Sample-App",
   "version": "1.0.0",
-  "description": "Sample Application",
+  "description": "Gospel Application",
   "repository": {
     "type": "git",
     "url": "https://github.com/openshift/origin-server"
