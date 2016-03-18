@@ -1,12 +1,24 @@
 {
-  "name": "Hello World!",
-  "description": "My first Chrome App.",
-  "version": "0.1",
-  "manifest_version": 2,
-  "app": {
-    "background": {
-      "scripts": ["background.js"]
-    }
-  },
-  "icons": { "16": "calculator-16.png", "128": "calculator-128.png" }
+  "name": "E-Cofit",
+  "short_name": "E-Cofit",
+  "icons": [{
+        "src": "../public/icon-291px.svg.png",
+        "sizes": "291x291",
+        "type": "image/png"
+      }, {
+        "src": "../public/launcher-logo-240px.svg.png",
+        "sizes": "240x240",
+        "type": "image/png"
+      }, {
+        "src": "calculator-128.png",
+        "sizes": "128x128",
+        "type": "image/png"
+      }, {
+        "src": "calculator-16.png",
+        "sizes": "16x16",
+        "type": "image/png"
+      }],
+  "background_color": "#b8a83e",
+  "display": "standalone",
+  "theme_color": "#A15B2E"
 }

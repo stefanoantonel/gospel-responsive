@@ -3,7 +3,7 @@
   "name": "Gospel Responsive App",
   "icons": [
     {
-      "src": "views/holy-bible-xl.png",
+      "src": "public/holy-bible.png",
       "sizes": "64x64",
       "type": "image/png"
     }
