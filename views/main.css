@@ -1,35 +1,29 @@
-
+.hidden {
+  display: none;
+}
 .text {
-    font-size: 20px;
-    color: white;
-    line-height: 2;
+  font-size: 22px;
+  color: white;
+  line-height: 2;
 }
 html {
-	background-color: black;
+  background-color: black;
 }
 .header-bible {
-	margin: auto;
-	display: block;
+  margin: auto;
+  display: block;
 }
-
+h4 {
+  color: white;
+}
 @-webkit-keyframes fadeIn {
-  from {
-    opacity: 0;
-  }
-
-  to {
-    opacity: 1;
-  }
+  from {  opacity: 0; }
+  to { opacity: 1; }
 }
 
 @keyframes fadeIn {
-  from {
-    opacity: 0;
-  }
-
-  to {
-    opacity: 1;
-  }
+  from { opacity: 0; }
+  to { opacity: 1; }
 }
 
 .fadeIn {
@@ -38,8 +32,11 @@ html {
 }
 
 .animated {
-  -webkit-animation-duration: 2s;
-  animation-duration: 2s;
+  -webkit-animation-duration: 1s;
+  animation-duration: 1s;
   -webkit-animation-fill-mode: both;
   animation-fill-mode: both;
+}
+.audio {
+  margin: 10px;
 }

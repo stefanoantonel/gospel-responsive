@@ -1,12 +1,12 @@
 {
-  "name": "E-Cofit",
-  "short_name": "E-Cofit",
+  "name": "Gospel",
+  "short_name": "Gospel",
   "icons": [{
-        "src": "../public/icon-291px.svg.png",
+        "src": "./icon-291px.svg.png",
         "sizes": "291x291",
         "type": "image/png"
       }, {
-        "src": "../public/launcher-logo-240px.svg.png",
+        "src": ".launcher-logo-240px.svg.png",
         "sizes": "240x240",
         "type": "image/png"
       }, {

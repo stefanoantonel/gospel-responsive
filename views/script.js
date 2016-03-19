@@ -1,12 +1,21 @@
 window.onload = function() {
 
-	var tiny_ajax = function(m,u,c,d){with(new XMLHttpRequest)onreadystatechange=function(){readyState^4||c(this)},open(m,u),send(d)};
+	/* fade in the gospel*/
+	var text = document.getElementById("gospel");
+	var msg = text.innerText;
+	text.classList.toggle("hidden");
+	text.classList.toggle("fadeIn");
+	text.innerHTML = msg;
 
-	tiny_ajax('get', '/getGospel', function (xhr) {
-	   // console.log(xhr.responseText);
-	    var text = document.getElementsByClassName("text")[0];
-		text.classList.toggle("fadeIn");
-	    text.innerHTML = xhr.responseText;
-	});
+	/** making the audio player*/
+	var text = document.getElementById("reflexion");
+	var msg = text.innerText;
+	var el = document.createElement( 'html' );
+	el.innerHTML = msg;
+	var source = el.querySelector("audio a").href;
+	var audio = "<audio controls><source src='"+source+"' type='audio/mpeg'>Your browser does not support the audio element.</audio>";
+	text.innerHTML = audio;
+	text.classList.toggle("hidden");
+	text.classList.toggle("fadeIn");
 };
 
