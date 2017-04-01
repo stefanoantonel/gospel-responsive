@@ -8,7 +8,10 @@ var express = require('express');
 var app 	= express();
 var parseString = require('xml2js').parseString;
 var cheerio = require('cheerio');
-var port 	= 8080;
+
+app.set('port', process.env.PORT || 443);
+var port = app.get('port');
+console.log('Port found', app.get('port'));
 
 var Gospel 	= {
 	"gospel": null,
