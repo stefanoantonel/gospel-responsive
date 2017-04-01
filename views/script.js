@@ -11,8 +11,7 @@ window.onload = function() {
 	var text = document.getElementById("reflexion");
 	var msg = text.innerText;
 	var el = document.createElement( 'html' );
-	el.innerHTML = msg;
-	var source = el.querySelector("audio a").href;
+	var source = msg;
 	var audio = "<audio controls><source src='"+source+"' type='audio/mpeg'>Your browser does not support the audio element.</audio>";
 	text.innerHTML = audio;
 	text.classList.toggle("hidden");

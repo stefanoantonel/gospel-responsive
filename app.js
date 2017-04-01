@@ -1,12 +1,13 @@
 #!/bin/env node
 //  OpenShift sample Node application
 var request = require('request');
-var Xray 	= require('x-ray');
+// var Xray 	= require('x-ray');
 var favicon = require('serve-favicon');
-var x 		= Xray();
+// var x 		= Xray();
 var express = require('express');
 var app 	= express();
 var parseString = require('xml2js').parseString;
+var cheerio = require('cheerio');
 var port 	= 8080;
 
 var Gospel 	= {
@@ -27,84 +28,56 @@ app.get('/', function (req, res) {
 });
 
 app.listen(port, function(){
-	console.log('listening on '+port);
+	console.log('listening on '+ port);
 	refresh();
 });
 
-
-
-app.get("/", function(req, res) {
-	res.render('index2', { 
-        title: 'Gospel', 
-        message: "Loading...232323232"
-    });
-});
-
-/*
-app.get('/getGospel', function(req, res) {
-	x('http://www.ciudadredonda.org/calendario-lecturas/evangelio-del-dia/hoy', ['div.texto_palabra']) 
-	(function(err, parts) {
-		var text = parts[parts.length -1];
-		res.send(text);
-	});
-});
-
-app.get('/getReflexion', function(req, res) {
-	var parseString = require('xml2js').parseString;
-	return new Promise(function(resolve, reject) { 
-		request('http://feeds.feedburner.com/PbroLuisZazano', function (error, response, body) {
-		    if (!error && response.statusCode == 200) {
-		        var xml = body;
-				parseString(xml, function (err, result) {
-				    console.log("--------------");
-			    	var reflexion = result.rss.channel["0"].item["0"]["content:encoded"]["0"];
-					res.send(reflexion)
-					resolve();
-				});
-		    }
-		    reject();
-		}); 
-	});
-});
-*/
-
 var refresh = function() {
-	getGospel()
-	.then(function(text) {
-		Gospel.gospel = text;
-		return getReflexion();
-	}).then(function(text) {
-		Gospel.reflexion = text;
-	});
+	getContent()
+	.then(function(response) {
+		Gospel.gospel = response.gospel;
+		Gospel.reflexion = response.reflexion;
+	})
 }
 
-var getGospel = function() {
+var getContent = function() {
+	/* return {gospel: .., reflexion: ..} */
 	return new Promise(function(resolve, reject) {
-		var url = 'http://www.ciudadredonda.org/calendario-lecturas/evangelio-del-dia/hoy';
-		x(url, ['div.texto_palabra']) 
-		(function(err, parts) {
-			if(!err) {
-				var text = parts[parts.length -1];
-				console.log("gospel ready")
-				resolve(text);	
-			}
-			reject();
-		});	
-	});
-}
-
-var getReflexion = function() {
-	return new Promise(function(resolve, reject) {
-		request('http://feeds.feedburner.com/PbroLuisZazano', function (error, response, body) {
-		    if (!error && response.statusCode == 200) {
-		        var xml = body;
-				parseString(xml, function (err, result) {
-			    	var reflexion = result.rss.channel["0"].item["0"]["content:encoded"]["0"];
-			    	console.log("reflexion ready")
-					resolve(reflexion);
+		var url = 'http://feeds.feedburner.com/mdc-misionerosdigitales';
+		var text = '';
+		var g = {gospel: null, reflexion: null};
+		request(url, function(err, resp, body) {
+			if(err) {
+				reject(err)
+			} else {
+				parseString(body, function (err, result) {
+					var items = result.rss.channel["0"].item;
+					var itemsNumber = items.length;
+					var i=0;
+					var found = false;
+					while(i < itemsNumber && !found) {
+						var html = items[i]["content:encoded"][0];
+						$ = cheerio.load(html);
+						var isEvangelium = $("h2:contains('Evangelio según San')");
+						if(isEvangelium[0]) {
+							title = $('h2')[0];
+							text = $(title).text();
+							var start = $('h2')[0];
+							var end = $('h2')[1];
+							$(start).nextUntil(end).each(function(i, elem) {
+								text += $(elem).text();
+							});
+							var reflexion = $('audio').toArray()[0];
+							$(reflexion).text();
+							g.reflexion = $(reflexion).text();
+							g.gospel = text;
+							found = true;
+						}
+						i++;
+					}
 				});
-		    }
-		    reject();
+				resolve(g);
+			}
 		});
 	});
 }
