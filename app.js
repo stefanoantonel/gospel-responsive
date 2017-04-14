@@ -62,16 +62,14 @@ var getContent = function() {
 						var html = items[i]["content:encoded"][0];
 						$ = cheerio.load(html);
 						var isEvangelium = $("h2:contains('Evangelio según San')");
-						if(isEvangelium[0]) {
-							title = $('h2')[0];
-							text = $(title).text();
-							var start = $('h2')[0];
-							var end = $('h2')[1];
-							$(start).nextUntil(end).each(function(i, elem) {
-								text += $(elem).text();
+						var title = isEvangelium[0];
+						if(title) {
+							text = $(title).text() + '<br>';
+							var start = $(isEvangelium)[0];
+							$(start).nextUntil('h2').each(function(i, elem) {
+								text += $(elem).html();
 							});
 							var reflexion = $('audio').toArray()[0];
-							$(reflexion).text();
 							g.reflexion = $(reflexion).text();
 							g.gospel = text;
 							found = true;
