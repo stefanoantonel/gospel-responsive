@@ -1,9 +1,13 @@
 from flask import Flask
 import feedparser
+from lxml import html, etree
+import requests
+
 
 app = Flask(__name__)
 
 search_word = 'Evangelio según San'
+METEO_URL = 'http://www.meteosuisse.admin.ch'
 
 @app.route('/')
 def hello_world():
@@ -92,3 +96,83 @@ def gospel_html(content):
         </head>
         <body>''' + content +'''</body>
     </html>'''
+
+@app.route('/weather')
+def hello_weather():
+    copyright = find_weather()
+    content = weather_html(copyright)
+    return content
+
+
+def find_weather():
+    page = requests.get(METEO_URL +'/home/portrait/impressum.html')
+    tree = html.fromstring(page.content)
+    print (page.content)
+    partial_link = tree.xpath('//section[@id="weather-widget"]/@data-json-url')[0]
+    print (partial_link)
+    link = METEO_URL + partial_link
+    data = requests.get(link).json()
+    return data
+
+
+def weather_html(content):
+    icon_url = METEO_URL + '/etc/designs/meteoswiss/assets/images/icons/meteo/weather-symbols/'
+    head = '''<html>
+        <head><title>Geneve Weather</title><meta name="viewport" ,="" content="width=device-width, initial-scale=1">
+            <meta charset="utf-8">
+            <meta name="theme-color" content="#a1952e">
+            <link rel="manifest" href="/static/manifest.json">
+            <meta name="msapplication-TileColor" content="#33dfa0">
+            <meta name="mobile-web-app-capable" content="yes">
+            <meta name="application-name" content="Gospel">
+            <style>
+                body {
+                    background-color: black;
+                    font-size: 24;
+                    color: white;
+                    font-family: sans-serif;
+                    line-height: 1.5;
+                    max-width: 650px;
+                    margin: 10px auto;
+                }
+                .row {
+                    display: flex;
+                    justify-content: space-evenly;
+                    align-items: center;
+                    margin: 20px 0;
+                }
+            </style>
+        </head>'''
+
+    data_html = '''
+        <div class="row">
+            <span>now:</span>
+            <span>%s</span>
+            <img src="%s%s.svg">
+        </div>''' % (
+            content['data']['current']['temperature'],
+            icon_url,
+            content['data']['current']['weather_symbol_id']
+        )
+    for item in content['data']['forecasts']:
+        data_html += '''
+            <div class="row">
+                <span>%s</span>
+                <span>%s</span>
+                <span>%s</span>
+                <img src="%s%s.svg">
+            </div>''' % (
+                item['day'],
+                item['temp_high'],
+                item['temp_low'],
+                icon_url,
+                item['weather_symbol_id'],
+            )
+
+    body = '''
+        <body>
+        %s
+        </body>
+        </html>''' % (data_html)
+
+    return head + body
