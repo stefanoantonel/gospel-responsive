@@ -55,11 +55,17 @@ def get_style():
             background-color: black;
             font-size: 24;
             color: white;
-            font-family: cursive;
+            font-family: sans-serif;
+            line-height: 1.5;
+            max-width: 650px;
+            margin: 10px auto;
         }
         .copyright {
             font-size: 8px;
             float: right;
+        }
+        audio {
+            width: 100%;
         }
     </style>'''
 
@@ -78,21 +84,7 @@ def gospel_html(content):
             <meta name="mobile-web-app-capable" content="yes">
             <meta name="application-name" content="Gospel">
             <link rel="icon" sizes="16x16" href="/static/favicon.ico">
-            <style>
-                body {
-                    background-color: black;
-                    font-size: 24;
-                    color: white;
-                    font-family: sans-serif;
-                    line-height: 1.5;
-                    max-width: 650px;
-                    margin: 10px auto;
-                }
-                .copyright {
-                    font-size: 8px;
-                    float: right;
-                }
-            </style>
+            ''' + get_style() + '''
         </head>
         <body>''' + content +'''</body>
     </html>'''
