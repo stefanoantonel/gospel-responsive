@@ -27,10 +27,8 @@ jobs:
           pip install feedparser
           python run.py
 
-      - name: GitHub Pages
-        # You may pin to the exact commit or the version.
-        # uses: crazy-max/ghaction-github-pages@db4476a01402e1a7ce05f41832040eef16d14925
-        uses: crazy-max/ghaction-github-pages@v2.5.0
+      - name: Deploy 🚀
+        uses: JamesIves/github-pages-deploy-action@4.1.7
         with:
-          build_dir: .
-          verbose: true
+          branch: gh-pages # The branch the action should deploy to.
+          folder: . # The folder the action should deploy.
