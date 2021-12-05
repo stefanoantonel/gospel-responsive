@@ -11,7 +11,7 @@ jobs:
   # This workflow contains a single job called "build"
   build:
     # The type of runner that the job will run on
-    runs-on: python
+    runs-on: ubuntu-latest
 
     # Steps represent a sequence of tasks that will be executed as part of the job
     steps:
@@ -21,6 +21,9 @@ jobs:
       # Runs a set of commands using the runners shell
       - name: Create HTML
         run: |
+          apt update; apt install python3-pip -y
+          pip install feedparser
+          python run.py
           pip install feedparser
           python run.py
 
