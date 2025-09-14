@@ -23,8 +23,7 @@ def find_gospel():
     for entry in parsed_obj.entries:
         evang_value = entry.content[0].value
         if find_str(evang_value, search_word):
-            if find_str(evang_value, '</audio>'):
-                return evang_value
+            return evang_value
     return 'NOT FOUND'
 
 
@@ -70,11 +69,11 @@ def gospel_html(content):
         <head><title>Evangelio</title><meta name="viewport" ,="" content="width=device-width, initial-scale=1">
             <meta charset="utf-8">
             <meta name="theme-color" content="#a1952e">
-            <link rel="manifest" href="/static/manifest.json">
+            <link rel="manifest" href="static/manifest.json">
             <meta name="msapplication-TileColor" content="#33dfa0">
             <meta name="mobile-web-app-capable" content="yes">
             <meta name="application-name" content="Gospel">
-            <link rel="icon" sizes="16x16" href="/static/favicon.ico">
+            <link rel="icon" sizes="16x16" href="static/favicon.ico">
             ''' + get_style() + '''
         </head>
         <body>''' + content +'''</body>

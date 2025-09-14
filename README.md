@@ -1,9 +1,23 @@
-The OpenShift `nodejs` cartridge documentation can be found at:
+# Gospel Fetcher
 
-http://openshift.github.io/documentation/oo_cartridge_guide.html#nodejs
+This script fetches the daily gospel from a feed and generates a static HTML file.
 
-#### App Deployed with Heroku
-http://gospelresponsive.herokuapp.com
+## Installation
 
-#### App Deployed in PythonAnywere
-http://stefanoantonel.pythonanywhere.com
+1. Clone the repository:
+   ```bash
+   git clone https://github.com/stefanoantonel/gospel
+   ```
+2. Install the dependencies:
+   ```bash
+   pip install -r requirements.txt
+   ```
+
+## Usage
+
+Run the script:
+```bash
+python run.py
+```
+
+This will create a `dist` directory with an `index.html` file and a `static` directory containing the necessary assets. You can open the `index.html` file in your browser to view the gospel.
